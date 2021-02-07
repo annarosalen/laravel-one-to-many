@@ -12,6 +12,17 @@
                 {{$employee -> lastname }}
                 {{$employee -> dateOfBirth }}
 
+                <ul>
+                    @foreach ($employee -> tasks as $task)
+
+                        <li>
+                            {{$task -> title}}
+                            ({{$task -> employee -> name}})                           
+                        </li>
+                        
+                    @endforeach
+                </ul>
+
             </li>
         @endforeach
 
