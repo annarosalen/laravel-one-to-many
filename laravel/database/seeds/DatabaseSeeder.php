@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         
         $this->call(TaskSeeder::class);
 
-        $this->call(Typology::class);
+        $this->call(TypologySeeder::class);
         
 
     }
