@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Employee;
+use App\Typology;
 use App\Task;
 
 class TaskController extends Controller
@@ -19,6 +21,7 @@ class TaskController extends Controller
 
         return view('pages.tasks', compact('tasks'));
     }
+  
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +30,9 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $employees= Employee::all();
+        $typologies = Typology::all();
+        return view('pages.task-create', compact('employees','typologies'));
     }
 
     /**
@@ -38,7 +43,15 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request ->all();
+
+        $employee = Employee::findOrFail($data['employee_id']);
+        $task = Task::make($request -> all());
+        $task -> employee() -> associate($employees);
+        $task -> save();
+
+        $typologies = Typology::findOrFail($data['typologies']);
+        $task -> typologies() -> attach($typologies);
     }
 
     /**
@@ -49,7 +62,11 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        $task = Task::findOrFail($id);
+
+        return view('pages.task-show', compact('task'));
+
+        dd($task);
     }
 
     /**
@@ -60,7 +77,11 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employees = Employee::all();
+        $typologies = Typology::all();
+
+        $task = Task::findOrFail($id);
+        return view('pages.task-edit', compact('employees','typologies','task'));
     }
 
     /**
@@ -72,7 +93,18 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request -> all();
+
+        $employee = Employee::findOrFail($data['employee_id']);
+        $task = Task::findOrFail($id);
+        $task -> update($data);
+        $task -> employee() -> associate($employee);
+        $task -> save();
+
+        $typologies = Typology::findOrFail($data['typologies']);
+        $task -> typologies() -> sync($typologies);
+
+        return view('pages.task-show', compact('employee','typologies','task'));
     }
 
     /**

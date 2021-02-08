@@ -21,6 +21,7 @@ class TaskSeeder extends Seeder
 
                 $employee = Employee::inRandomOrder() ->first();
                 $task -> employee() -> associate($employee);
+
                 $task -> save();
 
             });
