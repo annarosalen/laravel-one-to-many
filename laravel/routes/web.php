@@ -20,3 +20,14 @@ Route::get('/task/{id}', 'TaskController@show') -> name('task-show');
 
 Route::get('/task/edit/{id}', 'TaskController@edit') -> name('task-edit');
 Route::post('/task/update/{id}', 'TaskController@update') -> name('task-update');
+
+//TYPOLOGIES
+Route::get('/typologies', 'TypologyController@index') ->name('typologies-index');
+
+Route::get('/typology/typology-create', 'TypologyController@create') ->name('typology-create');
+Route::post('/typology/typology-store', 'TypologyController@store') ->name('typology-store');
+
+Route::get('/typology/{id}', 'TypologyController@show') ->name('typology-show');
+
+Route::get('/typology/edit/{id}' , 'TypologyController@edit') ->name('typology-edit');
+Route::post('/typology/update/{id}', 'TypologyController@update') ->name('typology-update');

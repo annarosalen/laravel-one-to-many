@@ -8,9 +8,6 @@
     DESCRIPTION: {{$task -> description }} <br>
     PRIORITY: {{$task -> priority }} <br><br>
 
-    {{-- @php
-        dd($task);
-    @endphp --}}
 
     EMPLOYEE:      
     <ul>                
