@@ -89,6 +89,10 @@ class TypologyController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request -> all();
+        $request->validate([
+            'name' => 'required|min:5|max:10',
+            'description' => 'required|email:rfc'
+        ]);
 
         $typology = Typology::findOrFail($id);
         $typology -> update($data);
